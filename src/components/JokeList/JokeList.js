@@ -36,7 +36,7 @@ class JokeList extends Component {
         if (!this.seenJokes.has(newJoke)) {
           jokes.push({ id: uuid(), text: newJoke, votes: 0 });
         } else {
-          console.log("FOUND A DUPLICATE!");
+          console.log("Dupe Detected");
           console.log(newJoke);
         }
       }
@@ -76,22 +76,23 @@ class JokeList extends Component {
         </div>
       );
     }
+    const jokesSorted = this.state.jokes.sort((a, b) => b.votes - a.votes);
     return (
       <div className="JokeList">
         <div className="JokeList-sidebar">
           <h1 className="JokeList-title">
-            <span>Dad</span> Jokes
+            <span>Joke</span> voter
           </h1>
           <img
             src="https://assets.dryicons.com/uploads/icon/svg/8927/0eb14c71-38f2-433a-bfc8-23d9c99b3647.svg"
             alt=""
           />
           <button className="Joke-list-getmore" onClick={this.handleClick}>
-            New Jokes
+            Fetch Jokes
           </button>
         </div>
         <div className="JokeList-jokes">
-          {this.state.jokes.map(j => (
+          {jokesSorted.map(j => (
             <Joke
               votes={j.votes}
               text={j.text}
